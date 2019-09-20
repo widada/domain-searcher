@@ -5,7 +5,7 @@ class DomainAuthority {
     this.sitelink = sitelink;
   }
 
-  async crawler() {
+  async execute() {
     const url = ' https://www.checkmoz.com/bulktool';
 
     const data = {
@@ -47,6 +47,4 @@ class DomainAuthority {
   }
 }
 
-const domainAuthority = new DomainAuthority('tiket.com');
-domainAuthority.crawler();
-// module.exports = DomainAuthority;
+module.exports = DomainAuthority;

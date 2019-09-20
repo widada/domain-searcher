@@ -3,32 +3,31 @@ const cheerio = require('cheerio');
 
 class DomainExpired {
   
-  constructor(extention) {
-    const DOMAIN_EXTENTION = {
-      com: 2,
-      net: 3
-    }
-    this.extention = DOMAIN_EXTENTION[extention];
-  }
-  
-  async execute () {
+  async execute (extention) {
     const domains = [];
     for (let i = 0; i <= 12; i++) {
       console.log(`Grabbing data in page ${i + 1}`)
       const offset = i * 25;
-      const domain = await crawler(offset)
+      const domain = await crawler(offset, extention)
       domains.push(domain);
       console.log(`end page ${i + 1}`);
     }
     return domains;
   }
   
-  crawler(offset = 0) {
+  crawler(offset = 0, extention = 'com') {
+    const DOMAIN_EXTENTION = {
+      com: 2,
+      net: 3
+    }
+    const extention = DOMAIN_EXTENTION[extention];
+
+
     var options = {
       uri: "https://www.expireddomains.net/deleted-domains",
       qs: {
         start: offset,
-        "ftlds[]": this.extention,
+        "ftlds[]": extention,
         fnumhost: 1,
         fsephost:1
       },
@@ -61,8 +60,7 @@ class DomainExpired {
           }
         });
   
-        
-        return domainData
+        return domainData.reduce((a, b) => a.concat(b));
       })
       .catch(console.log);
   }
