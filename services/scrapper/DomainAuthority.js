@@ -43,7 +43,7 @@ class DomainAuthority {
       alexa_rank: parseFloat(sanitize[6])
     }
 
-    return rawResponse;
+    return response;
   }
 }
 
