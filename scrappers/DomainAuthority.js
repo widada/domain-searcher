@@ -1,17 +1,13 @@
 const rp = require('request-promise');
 
 class DomainAuthority {
-  constructor(sitelink) {
-    this.sitelink = sitelink;
-  }
-
-  async execute() {
+  async execute(sitelink) {
     const url = ' https://www.checkmoz.com/bulktool';
 
     const data = {
       getStatus: 1,
       siteID: 1,
-      sitelink: this.sitelink,
+      sitelink: sitelink,
       da: 1,
       pa: 1,
       moz: 1,
@@ -40,8 +36,10 @@ class DomainAuthority {
       pa: parseFloat(sanitize[3]),
       moz_rank: parseFloat(sanitize[4]),
       backlink: parseFloat(sanitize[5]),
-      alexa_rank: parseFloat(sanitize[6])
+      alexa: parseFloat(sanitize[6]) || 0
     }
+
+    console.log(`Authority = DA ${response.da} - PA ${response.pa} - Moz Rank ${response.moz_rank} - Backlink ${response.backlink} - Alexa ${response.alexa}`);
 
     return response;
   }

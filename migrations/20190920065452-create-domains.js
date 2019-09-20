@@ -11,6 +11,7 @@ module.exports = {
       },
       sitename: {
         type: DataTypes.TEXT,
+        unique: true,
         allowNull: false
       },
       da: {
@@ -39,11 +40,16 @@ module.exports = {
         defaultValue: 0
       },
       moz_rank: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: true,
         defaultValue: 0
       },
       taken: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: false
+      },
+      checked: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
         defaultValue: false
