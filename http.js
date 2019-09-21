@@ -4,6 +4,16 @@ const { Domain } = require('./models');
 const app = express()
 const port = 3000
 
+const auth = require('http-auth');
+
+const basic = auth.basic({
+  realm: 'Domser Auth'
+}, (username, password, cb) => {
+  cb(username === 'latif' && password === 'metika1234');
+});
+
+app.use('/', auth.connect(basic), express.static('index'));
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+'/index.html'));
 });
