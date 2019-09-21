@@ -6,6 +6,7 @@ const { Domain } = require('./models');
 
 const domainExpired = new DomainExpired();
 const domainAuthority = new DomainAuthority();
+const domainPattern = process.env.DOMAIN_CRON;
 
 const execute = async (extention) => {
   try {
@@ -24,13 +25,13 @@ const execute = async (extention) => {
   } catch (error) { console.log(error) }
 }
 
-const domainCrawler1 = cron.schedule('*/30 * * * *', async () => {
+const domainCrawler1 = cron.schedule(domainPattern, async () => {
   domainCrawler1.stop();
   await execute('com');
   domainCrawler1.start();
 });
 
-const domainCrawler2 = cron.schedule('*/30 * * * *', async () => {
+const domainCrawler2 = cron.schedule(domainPattern, async () => {
   domainCrawler2.stop();
   await execute('net');
   domainCrawler2.start();

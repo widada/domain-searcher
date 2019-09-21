@@ -10,7 +10,7 @@ class DomainExpired {
       console.log(`Grabbing data in page ${i + 1}`)
       const offset = i * 25;
       const domain = await this.crawler(offset, extention)
-      domains.push("**** DOMAINS *** ", domain);
+      domains.push(domain);
       console.log(`end page ${i + 1}`);
     }
     return domains.reduce((a, b) => a.concat(b));
