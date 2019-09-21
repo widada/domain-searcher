@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Domser</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" type="text/javascript"></script>
+</head>
+<body>
+  <center>
+    <h1>Domser (Domain Searcher)</h1>
+    <span><i>Created by widada (v1.0)</i></span>
+    <br>
+    <input type="text" id='domain_name' placeholder="sitename">
+    <button id="take">Take</button>
+  </center>
+
+  <table id="myTable" class="display" width="100%"></table>
+</body>
+<script>
+
+$(document).ready( async function () {
+
+    $('#take').click(() => {
+      const sitename = $('#domain_name').val().trim();
+      if (!sitename) {
+        alert('Please fill sitename, if you wanna take it!');
+      } else {
+        $.ajax({
+          method: "POST",
+          url: `/api/${sitename}`,
+          dataType: 'json'
+        })
+        .done(function( msg ) {
+          alert(msg.message);
+        });
+      }
+
+    })
+
+    $('#myTable').DataTable({
+      serverSide: true,
+      searching: false,
+      ajax: '/api',
+      columns: [
+        { title: 'Sitename' },
+        { title: 'Da' },
+        { title: 'Pa' },
+        { title: 'Backlink' },
+        { title: 'Birth' },
+        { title: 'Alexa' },
+        { title: 'Moz Rank' },
+        { title: 'Taken' },
+        { title: 'Checked' }
+      ],
+    });
+});
+</script>
+</html>
