@@ -24,13 +24,13 @@ const execute = async (extention) => {
   } catch (error) { console.log(error) }
 }
 
-const domainCrawler1 = cron.schedule('*/1 * * * *', async () => {
+const domainCrawler1 = cron.schedule('*/30 * * * *', async () => {
   domainCrawler1.stop();
   await execute('com');
   domainCrawler1.start();
 });
 
-const domainCrawler2 = cron.schedule('*/1 * * * *', async () => {
+const domainCrawler2 = cron.schedule('*/30 * * * *', async () => {
   domainCrawler2.stop();
   await execute('net');
   domainCrawler2.start();
