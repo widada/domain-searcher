@@ -5,7 +5,7 @@ class DomainExpired {
   
   async execute (extention) {
     const domains = [];
-    const page = 1;
+    const page = 12;
     for (let i = 0; i <= page; i++) {
       console.log(`Grabbing data in page ${i + 1}`)
       const offset = i * 25;
