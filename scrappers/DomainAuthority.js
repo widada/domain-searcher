@@ -32,10 +32,10 @@ class DomainAuthority {
 
     const response = {
       domain: sanitize[1],
-      da: parseFloat(sanitize[2]),
-      pa: parseFloat(sanitize[3]),
-      moz_rank: parseFloat(sanitize[4]),
-      backlink: parseFloat(sanitize[5]),
+      da: parseFloat(sanitize[2]) || 0,
+      pa: parseFloat(sanitize[3]) || 0,
+      moz_rank: parseFloat(sanitize[4]) || 0,
+      backlink: parseFloat(sanitize[5]) || 0,
       alexa: parseFloat(sanitize[6]) || 0
     }
 
