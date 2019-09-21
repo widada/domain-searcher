@@ -24,17 +24,17 @@ const execute = async (extention) => {
   } catch (error) { console.log(error) }
 }
 
-// const domainCrawler1 = cron.schedule('* * * * * *', async () => {
-//   domainCrawler1.stop();
-//   await execute('com');
-//   domainCrawler1.start();
-// });
+const domainCrawler1 = cron.schedule('*/1 * * * *', async () => {
+  domainCrawler1.stop();
+  await execute('com');
+  domainCrawler1.start();
+});
 
-// const domainCrawler2 = cron.schedule('* * * * * *', async () => {
-//   domainCrawler2.stop();
-//   await execute('net');
-//   domainCrawler2.start();
-// });
+const domainCrawler2 = cron.schedule('*/1 * * * *', async () => {
+  domainCrawler2.stop();
+  await execute('net');
+  domainCrawler2.start();
+});
 
 const daChecker = cron.schedule('* * * * * *', async () => {
   daChecker.stop();
@@ -43,9 +43,9 @@ const daChecker = cron.schedule('* * * * * *', async () => {
       where: { checked: false }
     });
 
-    const daChecked = await domainAuthority.execute(domain.sitename);
-
-    if (daChecked) {
+    if (domain) {
+      const daChecked = await domainAuthority.execute(domain.sitename);
+    
       domain.da = daChecked.da;
       domain.pa = daChecked.pa;
       domain.alexa = daChecked.alexa;
@@ -62,5 +62,6 @@ const daChecker = cron.schedule('* * * * * *', async () => {
 
 
 
-// domainCrawler1.start();
-// domainCrawler2.start();
+domainCrawler1.start();
+domainCrawler2.start();
+daChecker.start();
